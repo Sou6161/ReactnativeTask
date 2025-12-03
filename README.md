@@ -53,8 +53,8 @@ cd backend
 npm install
 
 # Configure environment
-# Edit backend/.env and set your PostgreSQL password:
-# DB_PASSWORD=your_password
+# Copy .env.example to .env and configure your settings
+# Edit backend/.env and set your PostgreSQL password
 
 # Test database connection
 npm run test:db
@@ -63,9 +63,7 @@ npm run test:db
 npm run dev
 ```
 
-The backend will start on:
-- **Local**: http://localhost:3000
-- **Network**: http://192.168.1.10:3000
+The backend will start on your local machine and network.
 
 ### 3. Setup Frontend
 
@@ -84,14 +82,13 @@ Then press:
 ## ✅ Current Status
 
 ### Backend
-- ✅ Running on http://192.168.1.10:3000
-- ✅ Connected to PostgreSQL database (`sawa_app`)
+- ✅ Express.js API server
+- ✅ Connected to PostgreSQL database
 - ✅ All API endpoints working
 - ✅ Sample data loaded
 
 ### Database
 - ✅ PostgreSQL 18.1
-- ✅ Database: `sawa_app`
 - ✅ 6 tables created (categories, events, offers, venues, users, event_attendees)
 - ✅ Sample data: 5 categories, 3 events, 4 offers
 
@@ -102,17 +99,14 @@ Then press:
 
 ### Testing the Connection
 
-1. **Backend health check**: http://192.168.1.10:3000/health
+1. **Backend health check**: Access the `/health` endpoint
    - Should show: `"database": "Connected"`
 
 2. **Frontend**: Look for "Backend: ✅ Connected" at the top of the app
 
-3. **API Endpoints**:
-   - Categories: http://localhost:3000/api/categories
-   - Events: http://localhost:3000/api/events
-   - Offers: http://localhost:3000/api/offers
+3. **API Endpoints**: Test categories, events, and offers endpoints
 
-If you see "Backend: ❌ Disconnected", check the [Network Setup Guide](docs/NETWORK_SETUP.md)
+For detailed setup and testing instructions, check the [Network Setup Guide](docs/NETWORK_SETUP.md)
 
 ## 🗄️ Database Schema
 
@@ -135,6 +129,8 @@ If you see "Backend: ❌ Disconnected", check the [Network Setup Guide](docs/NET
 ## 🔧 Environment Variables
 
 ### Backend (.env)
+Create a `.env` file in the backend directory with the following variables:
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -142,10 +138,12 @@ NODE_ENV=development
 # PostgreSQL Database Configuration
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=sawa_app
-DB_USER=postgres
-DB_PASSWORD=your_password_here
+DB_NAME=your_database_name
+DB_USER=your_database_user
+DB_PASSWORD=your_secure_password
 ```
+
+**Note**: Never commit the `.env` file to version control. It's already included in `.gitignore`.
 
 ## 📡 API Endpoints
 
@@ -198,22 +196,16 @@ npm run test:db
 ```
 
 ### Test API Endpoints
-```bash
-# Health check
-curl http://localhost:3000/health
-
-# Get categories
-curl http://localhost:3000/api/categories
-
-# Get events
-curl http://localhost:3000/api/events
-
-# Get offers
-curl http://localhost:3000/api/offers
-```
+Use the provided test scripts or tools like Postman/Thunder Client to test:
+- Health check endpoint
+- Categories endpoint
+- Events endpoint
+- Offers endpoint
 
 ### Interactive Testing
 Open `backend/test-api.html` in your browser for an interactive API testing interface.
+
+For detailed API testing examples, see [API Testing Guide](backend/TEST_API.md).
 
 ## 🎨 Tech Stack
 
