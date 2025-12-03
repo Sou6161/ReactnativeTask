@@ -1,50 +1,73 @@
-# Welcome to your Expo app 👋
+# Events App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A full-stack React Native application with Express backend.
 
-## Get started
+## Project Structure
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+├── frontend/          # React Native (Expo) app
+├── backend/           # Express.js API server
+└── docs/             # Documentation
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Quick Start
 
-## Learn more
+### 1. Setup Backend
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+cd backend
+npm install
+npm run dev
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+The backend will start on http://localhost:3000
 
-## Join the community
+### 2. Setup Frontend
 
-Join our community of developers creating universal apps.
+```bash
+cd frontend
+npm install
+npm start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Then press:
+- `a` for Android
+- `i` for iOS
+- `w` for Web
+
+## Current Status
+
+✅ **Backend**: Running on http://localhost:3000 (local) and http://192.168.1.10:3000 (network)
+✅ **Frontend**: Using mock data
+✅ **Connection**: Backend and frontend are connected
+
+### Testing the Connection
+
+1. **Backend health check**: Open http://192.168.1.10:3000/health in your browser
+2. **Frontend**: Look for "Backend: ✅ Connected" in the app
+
+If you see "Backend: ❌ Disconnected", check the [Network Setup Guide](docs/NETWORK_SETUP.md)
+
+The app currently uses mock data on the frontend. When you're ready to replace it with real data:
+
+1. Add a database (PostgreSQL, MongoDB, etc.)
+2. Create database connection in `backend/src/config/`
+3. Create models in `backend/src/models/`
+4. Update API endpoints in `backend/src/index.ts`
+5. Update frontend to fetch from API instead of using mock data
+
+## Environment Variables
+
+### Backend (.env)
+```
+PORT=3000
+NODE_ENV=development
+```
+
+## API Endpoints
+
+- `GET /health` - Health check
+- `GET /api/categories` - Categories (ready for data)
+- `GET /api/events` - Events (ready for data)
+- `GET /api/offers` - Offers (ready for data)
+- `GET /api/users` - Users (ready for data)

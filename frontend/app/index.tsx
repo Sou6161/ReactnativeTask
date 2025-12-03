@@ -1,7 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 import { Dimensions, Image, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { checkBackendHealth } from '../services/api';
 
 const { width } = Dimensions.get('window');
 
@@ -38,6 +40,22 @@ const users = [
 export default function Index() {
   const insets = useSafeAreaInsets();
   const isIOS = Platform.OS === 'ios';
+  const [backendStatus, setBackendStatus] = useState<string>('Checking...');
+
+  // Check backend connection on mount
+  useEffect(() => {
+    const checkConnection = async () => {
+      const health = await checkBackendHealth();
+      if (health && health.status === 'OK') {
+        setBackendStatus('✅ Connected');
+        console.log('Backend connected:', health);
+      } else {
+        setBackendStatus('❌ Disconnected');
+        console.log('Backend not available - using mock data');
+      }
+    };
+    checkConnection();
+  }, []);
   
   return (
     <View className="flex-1 bg-gray-100">
@@ -62,6 +80,10 @@ export default function Index() {
             </TouchableOpacity>
           ))}
         </ScrollView>
+
+        <View className="px-4 mb-3">
+          <Text className="text-xs text-gray-500">Backend: {backendStatus}</Text>
+        </View>
 
         <View className="flex-row justify-between items-center px-4 mb-4">
           <Text className="text-2xl font-bold text-gray-800">Upcoming Events</Text>
